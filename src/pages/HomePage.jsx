@@ -103,7 +103,7 @@ export default function HomePage() {
             <span className="muted">Cycle length used</span>
           </div>
           <div className="stat">
-            <span className="stat_value">{settings.periodDuration} days</span>
+            <span className="stat__value">{settings.periodDuration} days</span>
             <span className="muted">Usual period</span>
           </div>
           <div className="stat">
