@@ -1,0 +1,20 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+dev-dist
+
+# Local env / OS files
+*.local
+.DS_Store
+
+# Logs
+npm-debug.log*
+
+# Editor settings (keep the shared extensions list)
+.vscode/*
+!.vscode/extensions.json
+
+# Test coverage
+coverage

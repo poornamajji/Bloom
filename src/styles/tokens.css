@@ -1,0 +1,124 @@
+/* Eleven design tokens + themes */
+
+/* Light is the default. System dark mode is applied via prefers-color-scheme unless the user picked a manual theme, which sets data-theme="light" or data-theme="dark" on <html>. */
+
+:root {
+  color-scheme: light;
+
+  /* Palette */
+  --rose-500: #d6457a;
+  --rose-400: #ec6a9a;
+  --rose-100: #ffelec;
+  --lilac-500: #7a5cc7;
+  --lilac-200: #e0d4fb;
+  --lilac-100: #f0eaff;
+  --peach-300: #ffc2a1;
+  --peach-100: #ffe9dc;
+  --butter-300: #ffe08a;
+  --butter-100: #fff6d6;
+  --cream: #fff8f3;
+
+  /* Semantic colors (light) */
+  --bg: var(--cream);
+  --bg-gradient: linear-gradient(160deg, #fff8f3 0%, #ffeaf2 55%, #efe7ff 100%);
+  --surface: #fff;
+  --surface-alt: #fff1f6;
+  --text: #3a2a3f;
+  --text-muted: #6f5d76;
+  --border: #f0d6e2;
+  --primary: var(--rose-500);
+  --primary-contrast: #ffffff;
+  --accent: var(--lilac-500);
+  --focus: #5b3fc4;
+  --period-actual: #d6457a;
+  --period-predicted: #7a5cc7;
+  --today-ring: #3a2a3f;
+  --danger: #b32616;
+  --success: #2f7d4f;
+  --shadow-color: 330 40% 40%;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+
+  /* Radii */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 6px hsl(var(--shadow-color) / 0.1);
+  --shadow-md: 0 8px 24px hsl(var(--shadow-color) / 0.14);
+
+  /* Type */
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
+  --text-sm: clamp(0.85rem, 0.82rem + 0.15vw, 0.95rem);
+  --text-base: clamp(1rem, 0.96rem + 0.2vw, 1.1rem);
+  --text-lg: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
+  --text-xl: clamp(1.6rem, 1.3rem + 1.4vw, 2.4rem);
+
+  /* Motion */
+  --duration-fast: 120ms;
+  --duration: 220ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Layout */
+  --touch-min: 44px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* Dark values shared by system-dark and manual-dark */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #1b1320;
+    --bg-gradient: linear-gradient(160deg, #1b1320 0%, #281730 55%, #23183d 100%);
+    --surface: #2a2033;
+    --surface-alt: #36283f;
+    --text: #fbeff5;
+    --text-muted: #cdb9d6;
+    --border: #4a3a55;
+    --primary: #ff8fb8;
+    --primary-contrast: #2a1020;
+    --accent: #c4a9ff;
+    --focus: #ffd98a;
+    --period-actual: #ff8fb8;
+    --period-predicted: #c4a9ff;
+    --today-ring: #fbeff5;
+    --danger: #ff9a93;
+    --success: #7fd9a1;
+    --shadow-color: 0 0% 0%;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #1b1320;
+  --bg-gradient: linear-gradient(160deg, #1b1320 0%, #2a1730 55%, #231a3d 100%);
+  --surface: #2a2033;
+  --surface-alt: #36283f;
+  --text: #fbeff5;
+  --text-muted: #cdb9d6;
+  --border: #4a3a55;
+  --primary: #ff8fb8;
+  --primary-contrast: #2a1020;
+  --accent: #c4a9ff;
+  --focus: #ffd98a;
+  --period-actual: #ff8fb8;
+  --period-predicted: #c4a9ff;
+  --today-ring: #fbeff5;
+  --danger: #ff9a93;
+  --success: #7fd9a1;
+  --shadow-color: 0 0% 0%;
+}
