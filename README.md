@@ -3,6 +3,9 @@
 A private, offline-friendly cycle companion. Cycle details are optional during
 first-run setup; estimates are only shown after a period start date is provided.
 User data is stored in the browser on the current device.
+Bloom uses its own `bloom_*` browser-storage keys, separate from any Eleven
+data already on the device. Existing `eleven_*` entries are left untouched and
+are not automatically imported.
 
 ## Local development
 

@@ -13,10 +13,10 @@ import {
 export const SCHEMA_VERSION = 1;
 
 export const KEYS = {
-  settings: 'eleven_settings',
-  periods: 'eleven_periods',
-  checkins: 'eleven_checkins',
-  theme: 'eleven_theme',
+  settings: 'bloom_settings',
+  periods: 'bloom_periods',
+  checkins: 'bloom_checkins',
+  theme: 'bloom_theme',
 };
 
 export function defaultSettings() {

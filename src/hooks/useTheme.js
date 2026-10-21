@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import appConfig from '../config/appConfig.js';
+import { KEYS } from '../services/storage.js';
 
-const THEME_KEY = 'eleven_theme';
 const VALID = ['system', 'light', 'dark'];
 
 export function readStoredTheme() {
   try {
-    const value = localStorage.getItem(THEME_KEY);
+    const value = localStorage.getItem(KEYS.theme);
     return VALID.includes(value) ? value : appConfig.defaultTheme;
   } catch {
     return appConfig.defaultTheme;
@@ -34,7 +34,7 @@ export default function useTheme() {
     if (!VALID.includes(next)) return;
     setThemeState(next);
     try {
-      localStorage.setItem(THEME_KEY, next);
+      localStorage.setItem(KEYS.theme, next);
     } catch {
       // Storage may be unavailable; the theme still applies for this session.
     }
