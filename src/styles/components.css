@@ -578,6 +578,12 @@ dialog::backdrop {
   font-weight: 700;
 }
 
+.cal_day--configured {
+  border: 2px dashed var(--period-actual);
+  color: var(--text);
+  font-weight: 700;
+}
+
 .cal_day--predicted {
   border: 2px dashed var(--period-predicted);
   color: var(--text);
@@ -631,6 +637,10 @@ dialog::backdrop {
 .legend_swatch--recorded {
   background: var(--period-actual);
   color: var(--primary-contrast);
+}
+
+.legend_swatch--configured {
+  border: 2px dashed var(--period-actual);
 }
 
 .legend_swatch--predicted {

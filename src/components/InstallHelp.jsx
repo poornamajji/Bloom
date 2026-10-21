@@ -5,7 +5,7 @@ export default function InstallHelp() {
   return (
     <Card title="Install on your phone" icon={<Smartphone size={18} aria-hidden="true" />}>
       <p className="muted">
-        Installing puts Eleven on your home screen so it opens like an app, even offline. You need an internet connection the first time you open it.
+        Installing puts Bloom on your home screen so it opens like an app, even offline. You need an internet connection the first time you open it.
       </p>
 
       <details className="help">

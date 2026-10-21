@@ -1,4 +1,4 @@
-/* Eleven design tokens + themes */
+/* Bloom design tokens + themes */
 
 /* Light is the default. System dark mode is applied via prefers-color-scheme unless the user picked a manual theme, which sets data-theme="light" or data-theme="dark" on <html>. */
 

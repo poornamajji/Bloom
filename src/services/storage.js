@@ -22,6 +22,7 @@ export const KEYS = {
 export function defaultSettings() {
   const c = appConfig.cycle;
   return {
+    setupComplete: false,
     cycleLength: c.defaultCycleLength,
     periodDuration: c.defaultPeriodDuration,
     lastPeriodStart: c.defaultLastPeriodStart,
@@ -55,6 +56,8 @@ export function sanitizeSettings(input) {
   if (!input || typeof input !== 'object') return base;
 
   const out = { ...base };
+  // Older saved settings predate first-run setup; consider those users onboarded.
+  out.setupComplete = typeof input.setupComplete === 'boolean' ? input.setupComplete : true;
   if (isValidCycleLength(input.cycleLength)) out.cycleLength = input.cycleLength;
   if (isValidPeriodDuration(input.periodDuration)) out.periodDuration = input.periodDuration;
   if (input.lastPeriodStart === null || isValidISODate(input.lastPeriodStart)) {
@@ -115,7 +118,18 @@ export function sanitizeCheckins(input) {
 }
 
 export function loadSettings() {
-  return sanitizeSettings(readJSON(KEYS.settings));
+  const storedSettings = readJSON(KEYS.settings);
+  const settings = sanitizeSettings(storedSettings);
+  const hasExistingRecords =
+    sanitizePeriods(readJSON(KEYS.periods)).length > 0 ||
+    Object.keys(sanitizeCheckins(readJSON(KEYS.checkins))).length > 0;
+  if (
+    storedSettings === undefined &&
+    hasExistingRecords
+  ) {
+    settings.setupComplete = true;
+  }
+  return settings;
 }
 
 export function saveSettings(settings) {
@@ -138,7 +152,7 @@ export function saveCheckins(checkins) {
   return writeJSON(KEYS.checkins, sanitizeCheckins(checkins));
 }
 
-/** Remove all Eleven data from this browser. */
+/** Remove all Bloom data from this browser. */
 export function deleteAllData() {
   try {
     Object.values(KEYS).forEach((k) => localStorage.removeItem(k));
@@ -152,7 +166,7 @@ export function deleteAllData() {
 
 export function buildExport({ settings, periods, checkins }) {
   return {
-    app: 'eleven',
+    app: 'bloom',
     version: SCHEMA_VERSION,
     exportedAt: new Date().toISOString(),
     settings: sanitizeSettings(settings),
@@ -173,8 +187,8 @@ export function parseImport(text) {
     return { ok: false, error: 'This file is not valid JSON.' };
   }
 
-  if (!parsed || typeof parsed !== 'object' || parsed.app !== 'eleven') {
-    return { ok: false, error: 'This does not look like an Eleven backup file.' };
+  if (!parsed || typeof parsed !== 'object' || !['bloom', 'eleven'].includes(parsed.app)) {
+    return { ok: false, error: 'This does not look like a Bloom backup file.' };
   }
   if (!Number.isInteger(parsed.version) || parsed.version > SCHEMA_VERSION) {
     return { ok: false, error: 'This backup was made by a newer version of the app.' };

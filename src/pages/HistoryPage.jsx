@@ -111,13 +111,13 @@ export default function HistoryPage() {
       <Card title="How estimates work">
         <p>
           A cycle is counted from the first day of one period to the first day of the next. In{' '}
-          <strong>fixed</strong> mode, Eleven adds your chosen cycle length ({settings.cycleLength} days) to your latest recorded start.
+          <strong>fixed</strong> mode, Bloom adds your chosen cycle length ({settings.cycleLength} days) to your latest recorded start.
         </p>
         <p>
           In <strong>adaptive</strong> mode, once you have at least 3 recorded cycles, it uses the average of up to your last 6 cycles instead. With less data it falls back to fixed mode.
         </p>
         <p className="muted">
-          Estimates are shown as a window because bodies are not clocks. Eleven can&apos;t diagnose anything or predict fertility, so please talk to a healthcare professional about any concerns.
+          Estimates are shown as a window because bodies are not clocks. Bloom can&apos;t diagnose anything or predict fertility, so please talk to a healthcare professional about any concerns.
         </p>
       </Card>
 

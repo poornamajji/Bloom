@@ -1,14 +1,14 @@
-// Eleven personalization config
+// Bloom personalization config
 // Edit the values below to change names, wording and defaults.
 // These are DEFAULTS. Once the user saves a setting in the app,
 // the saved value (in localStorage) takes precedence.
 
 export const appConfig = {
-  appName: 'Eleven',
-  recipientName: 'Jaanu',
+  appName: 'Bloom',
+  recipientName: 'sunshine',
   tagline: 'A gentle little space, just for you.',
 
-  welcomeHeading: 'Hey, Jaanu 💖🐶👀🎈',
+  welcomeHeading: 'Hey, sunshine 💖🐶👀🎈',
   welcomeMessage:
     'I made this little space just for you, so you always have one place to check in with yourself, keep track of your days, and remember to be a little gentle with yourself.\n\nSome days will feel easy, and some might feel a little harder. Take things at your own pace, listen to your body, and remember that you deserve care on every kind of day. 💗',
   signOff: 'Made with lots of care, just for you✨️',
@@ -19,8 +19,8 @@ export const appConfig = {
   cycle: {
     defaultCycleLength: 29,
     defaultPeriodDuration: 5,
-    // Date format YYYY-MM-DD. Set to null to make the app ask instead.
-    defaultLastPeriodStart: '2026-10-14',
+    // A date is personal information; ask the user rather than assuming one.
+    defaultLastPeriodStart: null,
     // "fixed" | "adaptive"
     defaultPredictionMode: 'fixed',
   },

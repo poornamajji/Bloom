@@ -50,6 +50,8 @@ export default function SettingsPage() {
     }
     if (lastStart && !isValidISODate(lastStart)) {
       next.lastStart = 'Please enter a valid date.';
+    } else if (lastStart && lastStart > todayISO()) {
+      next.lastStart = 'The start date cannot be in the future.';
     }
 
     setErrors(next);
@@ -68,7 +70,7 @@ export default function SettingsPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `eleven-backup-${todayISO()}.json`;
+    a.download = `bloom-backup-${todayISO()}.json`;
     a.click();
     URL.revokeObjectURL(url);
     toast('Backup downloaded');
@@ -147,10 +149,11 @@ export default function SettingsPage() {
           </div>
 
           <div className="field">
-            <label htmlFor="s-last">Last recorded period start</label>
+            <label htmlFor="s-last">Most recent period start (for estimates)</label>
             <input
               id="s-last"
               type="date"
+              max={todayISO()}
               value={lastStart}
               disabled={periods.length > 0}
               onChange={(e) => setLastStart(e.target.value)}
@@ -164,7 +167,12 @@ export default function SettingsPage() {
             )}
             {periods.length > 0 && (
               <span className="muted">
-                Locked because you have recorded periods. Estimates now use your latest recorded start; manage them in History.
+                Locked because you have logged periods. Estimates use the latest logged start; manage those records in History.
+              </span>
+            )}
+            {!periods.length && (
+              <span className="muted">
+                This date is only used to calculate estimates. It does not record a period; log a start in Calendar and add its end date later if you want.
               </span>
             )}
           </div>
@@ -263,7 +271,7 @@ export default function SettingsPage() {
 
       <Card title="Privacy">
         <p>
-          Everything stays on this device. Eleven has no account, no server, and no analytics, and your records are never sent anywhere.
+          Everything stays on this device. Bloom has no account, no server, and no analytics, and your records are never sent anywhere.
         </p>
         <p className="muted">
           Browser storage isn&apos;t encrypted, and it can be cleared by you, your browser or your device. Export a backup now and then.

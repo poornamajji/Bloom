@@ -60,8 +60,13 @@ export function PeriodDialog({ date, period, onSave, onDelete, onClose }) {
 
   function submit(e) {
     e.preventDefault();
-    if (start > todayISO()) {
+    const today = todayISO();
+    if (start > today) {
       setError('That date is in the future. Record a period once it has actually started.');
+      return;
+    }
+    if (end && end > today) {
+      setError('The last day cannot be in the future. Leave it blank if the period is ongoing.');
       return;
     }
     const result = onSave({ start, end: end || undefined });
@@ -97,8 +102,12 @@ export function PeriodDialog({ date, period, onSave, onDelete, onClose }) {
             type="date"
             value={end}
             min={start}
+            max={todayISO()}
             onChange={(e) => setEnd(e.target.value)}
           />
+          <span className="muted">
+            You can save the start date now and edit this period later when you know the end date.
+          </span>
         </div>
         {error && (
           <p id="p-error" className="error" role="alert">

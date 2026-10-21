@@ -37,6 +37,7 @@ export default function CalendarPage() {
 
   const cells = useMemo(() => buildMonthGrid(view.year, view.month), [view]);
   const recorded = useMemo(() => recordedDaySet(periods, addDays), [periods]);
+  const settingsStart = !periods.length ? settings.lastPeriodStart : null;
   const predicted = useMemo(() => new Set(predictedPeriodDays(prediction, settings.periodDuration)), [prediction, settings.periodDuration]);
 
   const monthLabel = new Date(view.year, view.month - 1, 1, 12).toLocaleDateString(undefined, {
@@ -70,6 +71,7 @@ export default function CalendarPage() {
 
   function dayStatus(iso) {
     if (recorded.has(iso)) return 'Recorded period day';
+    if (iso === settingsStart) return 'Start date for estimates from Settings (not recorded)';
     if (predicted.has(iso)) return 'Estimated period day';
     return '';
   }
@@ -114,7 +116,8 @@ export default function CalendarPage() {
             <div role="row" className="cal_row" key={r}>
               {cells.slice(r * 7, r * 7 + 7).map((c) => {
                 const isRecorded = recorded.has(c.iso);
-                const isPredicted = !isRecorded && predicted.has(c.iso);
+                const isConfigured = !isRecorded && c.iso === settingsStart;
+                const isPredicted = !isRecorded && !isConfigured && predicted.has(c.iso);
                 const isToday = c.iso === today;
                 const isSelected = c.iso === selected;
                 const status = dayStatus(c.iso);
@@ -124,6 +127,7 @@ export default function CalendarPage() {
                   'cal_day',
                   !c.inMonth && 'cal_day--out',
                   isRecorded && 'cal_day--recorded',
+                  isConfigured && 'cal_day--configured',
                   isPredicted && 'cal_day--predicted',
                   isToday && 'cal_day--today',
                   isSelected && 'cal_day--selected',
@@ -159,6 +163,12 @@ export default function CalendarPage() {
           <li>
             <span className="legend_swatch legend_swatch--recorded" aria-hidden="true">●</span> Recorded period
           </li>
+          {settingsStart && (
+            <li>
+              <span className="legend_swatch legend_swatch--configured" aria-hidden="true" />
+              Start date from Settings (not recorded)
+            </li>
+          )}
           <li>
             <span className="legend_swatch legend_swatch--predicted" aria-hidden="true">◌</span> Estimated (not certain)
           </li>
@@ -172,16 +182,21 @@ export default function CalendarPage() {
         <p>{dayStatus(selected) || 'No period marked on this day.'}</p>
         {checkins[selected] && <p className="muted">You have a check-in saved for this day.</p>}
         <div className="actions">
-          <button type="button" className="btn" onClick={() => setDialog({ period: null })}>
-            <Plus size={18} aria-hidden="true" /> Record period start here
-          </button>
+          {!selectedPeriod && (
+            <button type="button" className="btn" onClick={() => setDialog({ period: null })}>
+              <Plus size={18} aria-hidden="true" />
+              {selected === settingsStart ? 'Record this start as a period' : 'Record period start here'}
+            </button>
+          )}
           {selectedPeriod && (
             <button type="button" className="btn btn--ghost" onClick={() => setDialog({ period: selectedPeriod })}>
-              <Pencil size={18} aria-hidden="true" /> Edit this period
+              <Pencil size={18} aria-hidden="true" /> Edit recorded period
             </button>
           )}
         </div>
-        <p className="muted">Estimated days come from your settings. They are never saved as real records.</p>
+        <p className="muted">
+          A date entered in Settings is only used for estimates, not saved as a recorded period. When logging a period, you can save just its start date now and edit it later to add the end date.
+        </p>
       </Card>
 
       {dialog && (

@@ -8,7 +8,7 @@ export default function OfflineBanner() {
 
   return (
     <div className="offline-banner" role="status">
-      <WifiOff size={16} aria-hidden="true" /> You&apos;re offline. Eleven still works, and your data stays on this device.
+      <WifiOff size={16} aria-hidden="true" /> You&apos;re offline. Bloom still works, and your data stays on this device.
     </div>
   );
 }
