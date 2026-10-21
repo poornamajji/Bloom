@@ -19,3 +19,7 @@ npm run build
 The Vite base path and PWA start URL are configured for the `Bloom` repository
 (`/Bloom/`). The GitHub Actions workflow deploys the `main` branch to GitHub
 Pages after building the app.
+
+For the first deployment, enable Pages once in the repository: open **Settings
+> Pages**, set **Build and deployment > Source** to **GitHub Actions**, then
+rerun the latest workflow from the **Actions** tab (or use **Run workflow**).
